@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MotorcycleShop.BUS/MotorcycleShop.BUS.csproj" />
+  <Project Path="MotorcycleShop.DAL/MotorcycleShop.DAL.csproj" />
+  <Project Path="MotorcycleShop.DTO/MotorcycleShop.DTO.csproj" />
+  <Project Path="MotorcycleShop.GUI/MotorcycleShop.GUI.csproj" />
+</Solution>
