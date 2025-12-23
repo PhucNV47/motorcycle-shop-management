@@ -1,13 +1,49 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
-using System.Diagnostics;
-using Microsoft.Data.SqlClient;
 
 namespace MotorcycleShop.DAL
 {
     public static class Database
     {
+        private static string connectionString =
+            @"Server=.;Database=MotorcycleShop;Trusted_Connection=True;TrustServerCertificate=True";
+        public static DataTable ExecuteQuery(string sql, SqlParameter[] parameters = null)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                if (parameters != null)
+                    cmd.Parameters.AddRange(parameters);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+
+            return dt;
+        }
+
+        // INSERT / UPDATE / DELETE
+        public static int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                if (parameters != null)
+                    cmd.Parameters.AddRange(parameters);
+
+                return cmd.ExecuteNonQuery();
+            }
+        }
         // Public logging helpers (lightweight structured logging)
         public static void LogInformation(string message, params (string Key, object Value)[] props)
             => Log("INFO", message, props);

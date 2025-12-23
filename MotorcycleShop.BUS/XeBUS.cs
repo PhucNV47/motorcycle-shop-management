@@ -10,7 +10,7 @@ namespace MotorcycleShop.BUS
 {
     public class XeBUS
     {
-        XeDAL dal = new XeDAL();
+        private readonly XeDAL dal = new XeDAL();
         
         public DataTable LayDanhSachXe()
         {
@@ -19,23 +19,44 @@ namespace MotorcycleShop.BUS
 
         public bool ThemXe(XeDTO xe)
         {
-            if(string.IsNullOrEmpty(xe.TenXe))
-                return false;
-            if(xe.Gia <= 0 || xe.SoLuong < 0 )
+            // Validate nghiệp vụ
+            if (xe == null) return false;
+
+            if (string.IsNullOrWhiteSpace(xe.TenXe))
                 return false;
 
-            return dal.Insert(xe);
+            if (xe.Gia <= 0)
+                return false;
+
+            if (xe.SoLuong < 0)
+                return false;
+
+            // DAL trả int → BUS trả bool
+            return dal.Insert(xe) > 0;
         }
 
         public bool XoaXe(int maXe)
         {
-            if(maXe <=0) return false; 
-            return dal.Delete(maXe);
+            if (maXe <= 0)
+                return false;
+
+            return dal.Delete(maXe) > 0;
         }
         public bool SuaXe(XeDTO xe)
         {
-            if (xe.MaXe <= 0) return false;
-            return dal.Update(xe);
+            if (xe == null) 
+                return false;
+
+            if (xe.MaXe <= 0)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(xe.TenXe))
+                return false;
+
+            if (xe.Gia <= 0 || xe.SoLuong < 0)
+                return false;
+
+            return dal.Update(xe) > 0;
         }
     }
 }

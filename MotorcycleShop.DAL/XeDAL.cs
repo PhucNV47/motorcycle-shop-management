@@ -11,70 +11,78 @@ namespace MotorcycleShop.DAL
 {
     public class XeDAL
     {
-        
-            public DataTable GetAll()
-            {
-                var dt = new DataTable();
-                using (var conn = Database.GetConnection())
-                using (var da = new SqlDataAdapter("SELECT * FROM Xe", conn))
-                {
-                    // Open explicitly so connection-related exceptions point at conn.Open()
-                    conn.Open();
-                    da.Fill(dt);
-                }
 
-                return dt;
-            }
-
-            public bool Insert(XeDTO xe)
-            {
-                string sql = @"INSERT INTO Xe(TenXe, HangXe, Gia, SoLuong)
-                           VALUES (@TenXe, @HangXe, @Gia, @SoLuong)";
-
-                using (var conn = Database.GetConnection())
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@TenXe", xe.TenXe);
-                    cmd.Parameters.AddWithValue("@HangXe", xe.HangXe);
-                    cmd.Parameters.AddWithValue("@Gia", xe.Gia);
-                    cmd.Parameters.AddWithValue("@SoLuong", xe.SoLuong);
-
-                    conn.Open();
-                    int result = cmd.ExecuteNonQuery();
-                    conn.Close();
-
-                    return result > 0;
-                }
-            }
-            public bool Delete(int maXe)
+        // Lấy danh sách tất cả xe
+        public DataTable GetAll()
         {
-            string sql = @"DELETE FROM Xe WHERE MaXe =@MaXe";
-            SqlConnection conn = Database.GetConnection();
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@MaXe", maXe);
-            conn.Open();
-            int result = cmd.ExecuteNonQuery();
-            conn.Close();
-            return result > 0;
-        } 
-            public bool Update(XeDTO xe)
+            string sql = "SELECT MaXe, TenXe, Gia, SoLuong FROM Xe";
+            return Database.ExecuteQuery(sql);
+        }
+
+        // Lấy xe theo mã
+        public DataTable GetById(int maXe)
         {
-            string sql = @"UPDATE Xe 
-                   SET TenXe=@TenXe, HangXe=@HangXe, Gia=@Gia, SoLuong=@SoLuong
-                   WHERE MaXe=@MaXe";
+            string sql = "SELECT MaXe, TenXe, Gia, SoLuong FROM Xe WHERE MaXe = @MaXe";
 
-            SqlConnection conn = Database.GetConnection();
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@MaXe", xe.MaXe);
-            cmd.Parameters.AddWithValue("@TenXe", xe.TenXe);
-            cmd.Parameters.AddWithValue("@HangXe", xe.HangXe);
-            cmd.Parameters.AddWithValue("@Gia", xe.Gia);
-            cmd.Parameters.AddWithValue("@SoLuong", xe.SoLuong);
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@MaXe", maXe)
+            };
 
-            conn.Open() ;
-            int result = cmd.ExecuteNonQuery();
-            conn.Close();
-            return result > 0;
+            return Database.ExecuteQuery(sql, parameters);
+        }
+
+        // Thêm xe
+        public int Insert(XeDTO xe)
+        {
+            string sql = @"
+                INSERT INTO Xe (TenXe, Gia, SoLuong)
+                VALUES (@TenXe, @Gia, @SoLuong)";
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@TenXe", xe.TenXe),
+                new SqlParameter("@Gia", xe.Gia),
+                new SqlParameter("@SoLuong", xe.SoLuong)
+            };
+
+            return Database.ExecuteNonQuery(sql, parameters);
+        }
+
+        // Cập nhật xe
+        public int Update(XeDTO xe)
+        {
+            string sql = @"
+                UPDATE Xe
+                SET TenXe = @TenXe,
+                    Gia = @Gia,
+                    SoLuong = @SoLuong
+                WHERE MaXe = @MaXe";
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@MaXe", xe.MaXe),
+                new SqlParameter("@TenXe", xe.TenXe),
+                new SqlParameter("@Gia", xe.Gia),
+                new SqlParameter("@SoLuong", xe.SoLuong)
+            };
+
+            return Database.ExecuteNonQuery(sql, parameters);
+        }
+
+        // Xóa xe
+        public int Delete(int maXe)
+        {
+            string sql = "DELETE FROM Xe WHERE MaXe = @MaXe";
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@MaXe", maXe)
+            };
+
+            return Database.ExecuteNonQuery(sql, parameters);
         }
     }
+
 }
+

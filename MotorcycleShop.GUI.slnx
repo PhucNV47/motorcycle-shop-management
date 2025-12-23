@@ -1,6 +1,10 @@
 <Solution>
-  <Project Path="MotorcycleShop.BUS/MotorcycleShop.BUS.csproj" />
-  <Project Path="MotorcycleShop.DAL/MotorcycleShop.DAL.csproj" />
-  <Project Path="MotorcycleShop.DTO/MotorcycleShop.DTO.csproj" />
-  <Project Path="MotorcycleShop.GUI/MotorcycleShop.GUI.csproj" />
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="../../../../../../../../myproject/MotorcycleShop.GUI/MotorcycleShop.API/MotorcycleShop.API.csproj" Id="c37bb88b-1b0b-4647-a80c-17999732e0eb" />
+  <Project Path="../../../../../../../../myproject/MotorcycleShop.GUI/MotorcycleShop.BUS/MotorcycleShop.BUS.csproj" />
+  <Project Path="../../../../../../../../myproject/MotorcycleShop.GUI/MotorcycleShop.DAL/MotorcycleShop.DAL.csproj" />
+  <Project Path="../../../../../../../../myproject/MotorcycleShop.GUI/MotorcycleShop.DTO/MotorcycleShop.DTO.csproj" />
+  <Project Path="../../../../../../../../myproject/MotorcycleShop.GUI/MotorcycleShop.GUI/MotorcycleShop.GUI.csproj" />
 </Solution>
