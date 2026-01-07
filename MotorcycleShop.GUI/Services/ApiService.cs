@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MotorcycleShop.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 namespace MotorcycleShop.GUI.Services
 {
     public class ApiService
@@ -39,6 +39,13 @@ namespace MotorcycleShop.GUI.Services
         public async Task<HttpResponseMessage> DeleteAsync(string url)
         {
             return await _client.DeleteAsync(url);
+        }
+
+        public async Task<List<XeDTO>> Search(string keyword)
+        {
+            var res = await _client.GetAsync($"Xe/search?keyword={keyword}");
+            var json = await res.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<XeDTO>>(json);
         }
 
 

@@ -82,6 +82,17 @@ namespace MotorcycleShop.DAL
 
             return Database.ExecuteNonQuery(sql, parameters);
         }
+
+        public DataTable Search(string keyword)
+        {
+            string sql = "SELECT * from Xe WHERE TenXe LIKE @kw";
+
+            SqlParameter[] parameters =
+             {
+                new SqlParameter("@kw", "%" + keyword + "%")
+             };
+            return Database.ExecuteQuery(sql, parameters);
+        }
     }
 
 }

@@ -10,7 +10,7 @@ namespace MotorcycleShop.DAL
     public static class Database
     {
         private static string connectionString =
-            @"Server=.;Database=MotorcycleShop;Trusted_Connection=True;TrustServerCertificate=True";
+            @"Server=.\SQLEXPRESS;Database=MotorcycleShopDB;Trusted_Connection=True;TrustServerCertificate=True";
         public static DataTable ExecuteQuery(string sql, SqlParameter[] parameters = null)
         {
             DataTable dt = new DataTable();

@@ -12,6 +12,7 @@ namespace MotorcycleShop.GUI
             InitializeComponent();
             LoadXe();
 
+
         }
         void LoadXe()
         {
@@ -93,6 +94,12 @@ namespace MotorcycleShop.GUI
             txtHangXe.Text = dgvXe.Rows[e.RowIndex].Cells["HangXe"].Value.ToString();
             txtGia.Text = dgvXe.Rows[e.RowIndex].Cells["Gia"].Value.ToString();
             txtSoLuong.Text = dgvXe.Rows[e.RowIndex].Cells["SoLuong"].Value.ToString();
+        }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim();
+            dgvXe.DataSource = bus.TimKiemXe(keyword);
         }
     }
 }

@@ -58,5 +58,15 @@ namespace MotorcycleShop.BUS
 
             return dal.Update(xe) > 0;
         }
+
+        public DataTable TimKiemXe(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return dal.GetAll();
+
+            return dal.Search(keyword);
+        }
+
+
     }
 }

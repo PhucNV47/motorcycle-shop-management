@@ -40,16 +40,18 @@
             label4 = new Label();
             btnXoa = new Button();
             buttonSua = new Button();
+            btnSearch = new Button();
+            txtSearch = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvXe).BeginInit();
             SuspendLayout();
             // 
             // dgvXe
             // 
             dgvXe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvXe.Location = new Point(105, 212);
+            dgvXe.Location = new Point(27, 151);
             dgvXe.Name = "dgvXe";
             dgvXe.RowHeadersWidth = 62;
-            dgvXe.Size = new Size(647, 217);
+            dgvXe.Size = new Size(592, 192);
             dgvXe.TabIndex = 0;
             dgvXe.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -69,21 +71,21 @@
             // 
             // txtHangXe
             // 
-            txtHangXe.Location = new Point(105, 144);
+            txtHangXe.Location = new Point(105, 96);
             txtHangXe.Name = "txtHangXe";
             txtHangXe.Size = new Size(188, 31);
             txtHangXe.TabIndex = 3;
             // 
             // txtSoLuong
             // 
-            txtSoLuong.Location = new Point(564, 144);
+            txtSoLuong.Location = new Point(564, 96);
             txtSoLuong.Name = "txtSoLuong";
             txtSoLuong.Size = new Size(188, 31);
             txtSoLuong.TabIndex = 4;
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(93, 462);
+            btnThem.Location = new Point(24, 420);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(172, 41);
             btnThem.TabIndex = 5;
@@ -104,7 +106,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(27, 150);
+            label2.Location = new Point(24, 102);
             label2.Name = "label2";
             label2.Size = new Size(75, 25);
             label2.TabIndex = 7;
@@ -123,7 +125,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(472, 150);
+            label4.Location = new Point(472, 102);
             label4.Name = "label4";
             label4.Size = new Size(83, 25);
             label4.TabIndex = 9;
@@ -131,7 +133,7 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(318, 462);
+            btnXoa.Location = new Point(242, 420);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(172, 41);
             btnXoa.TabIndex = 10;
@@ -141,7 +143,7 @@
             // 
             // buttonSua
             // 
-            buttonSua.Location = new Point(564, 461);
+            buttonSua.Location = new Point(472, 420);
             buttonSua.Name = "buttonSua";
             buttonSua.Size = new Size(172, 41);
             buttonSua.TabIndex = 11;
@@ -149,11 +151,30 @@
             buttonSua.UseVisualStyleBackColor = true;
             buttonSua.Click += buttonXoa_Click;
             // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(677, 420);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(172, 41);
+            btnSearch.TabIndex = 12;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(677, 480);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(188, 31);
+            txtSearch.TabIndex = 13;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(882, 514);
+            Controls.Add(txtSearch);
+            Controls.Add(btnSearch);
             Controls.Add(buttonSua);
             Controls.Add(btnXoa);
             Controls.Add(label4);
@@ -187,5 +208,7 @@
         private Label label4;
         private Button btnXoa;
         private Button buttonSua;
+        private Button btnSearch;
+        private TextBox txtSearch;
     }
 }
