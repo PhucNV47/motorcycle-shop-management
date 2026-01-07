@@ -1,74 +1,73 @@
-﻿using System.Xml.Linq;
-using MotorcycleShop.BUS;
-using MotorcycleShop.DTO;
+﻿using MotorcycleShop.DTO;
+using MotorcycleShop.GUI.Services;
 
 namespace MotorcycleShop.GUI
 {
     public partial class Form1 : Form
     {
-        XeBUS bus = new XeBUS();
+        private readonly ApiService _api = new ApiService();
+
         public Form1()
         {
             InitializeComponent();
             LoadXe();
-
-
         }
-        void LoadXe()
+
+        // ======================
+        // LOAD DATA
+        // ======================
+        private async void LoadXe()
         {
-            dgvXe.DataSource = bus.LayDanhSachXe();
+            dgvXe.DataSource = await _api.GetAllXe();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void btnThem_Click(object sender, EventArgs e)
+        // ======================
+        // ADD
+        // ======================
+        private async void btnThem_Click(object sender, EventArgs e)
         {
             XeDTO xe = new XeDTO
             {
                 TenXe = txtTenXe.Text,
                 HangXe = txtHangXe.Text,
                 Gia = decimal.Parse(txtGia.Text),
-                SoLuong = int.Parse(txtSoLuong.Text),
+                SoLuong = int.Parse(txtSoLuong.Text)
             };
 
-            if (bus.ThemXe(xe))
+            if (await _api.CreateXe(xe))
             {
-                MessageBox.Show("Them thanh cong!");
+                MessageBox.Show("Thêm thành công!");
                 LoadXe();
             }
             else
             {
-                MessageBox.Show("Du lieu khong hop le!");
+                MessageBox.Show("Thêm thất bại!");
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        // ======================
+        // DELETE
+        // ======================
+        private async void btnXoa_Click(object sender, EventArgs e)
         {
+            if (dgvXe.CurrentRow == null) return;
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            if (dgvXe.CurrentCell == null) return;
             int maXe = Convert.ToInt32(dgvXe.CurrentRow.Cells["MaXe"].Value);
 
-            if (bus.XoaXe(maXe))
+            if (await _api.DeleteXe(maXe))
             {
                 MessageBox.Show("Xóa thành công");
                 LoadXe();
             }
         }
 
-        private void buttonXoa_Click(object sender, EventArgs e)
+        // ======================
+        // UPDATE
+        // ======================
+        private async void buttonXoa_Click(object sender, EventArgs e)
         {
+            if (dgvXe.CurrentRow == null) return;
+
             int maXe = Convert.ToInt32(dgvXe.CurrentRow.Cells["MaXe"].Value);
 
             XeDTO xe = new XeDTO
@@ -80,26 +79,33 @@ namespace MotorcycleShop.GUI
                 SoLuong = int.Parse(txtSoLuong.Text)
             };
 
-            if (bus.SuaXe(xe))
+            if (await _api.UpdateXe(xe))
             {
                 MessageBox.Show("Cập nhật thành công");
                 LoadXe();
             }
         }
+
+        // ======================
+        // GRID CLICK
+        // ======================
         private void dgvXe_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
-            txtTenXe.Text = dgvXe.Rows[e.RowIndex].Cells["TenXe"].Value.ToString();
-            txtHangXe.Text = dgvXe.Rows[e.RowIndex].Cells["HangXe"].Value.ToString();
-            txtGia.Text = dgvXe.Rows[e.RowIndex].Cells["Gia"].Value.ToString();
-            txtSoLuong.Text = dgvXe.Rows[e.RowIndex].Cells["SoLuong"].Value.ToString();
+            txtTenXe.Text = dgvXe.Rows[e.RowIndex].Cells["TenXe"].Value?.ToString();
+            txtHangXe.Text = dgvXe.Rows[e.RowIndex].Cells["HangXe"].Value?.ToString();
+            txtGia.Text = dgvXe.Rows[e.RowIndex].Cells["Gia"].Value?.ToString();
+            txtSoLuong.Text = dgvXe.Rows[e.RowIndex].Cells["SoLuong"].Value?.ToString();
         }
 
+        // ======================
+        // SEARCH
+        // ======================
         private async void btnSearch_Click(object sender, EventArgs e)
         {
             string keyword = txtSearch.Text.Trim();
-            dgvXe.DataSource = bus.TimKiemXe(keyword);
+            dgvXe.DataSource = await _api.Search(keyword);
         }
     }
 }

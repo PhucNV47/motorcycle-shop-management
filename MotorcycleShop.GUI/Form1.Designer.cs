@@ -48,12 +48,12 @@
             // dgvXe
             // 
             dgvXe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvXe.Location = new Point(27, 151);
+            dgvXe.Location = new Point(105, 165);
             dgvXe.Name = "dgvXe";
             dgvXe.RowHeadersWidth = 62;
             dgvXe.Size = new Size(592, 192);
             dgvXe.TabIndex = 0;
-            dgvXe.CellContentClick += dataGridView1_CellContentClick;
+            //dgvXe.CellContentClick += dataGridView1_CellContentClick;
             // 
             // txtTenXe
             // 
@@ -101,7 +101,7 @@
             label1.Size = new Size(58, 25);
             label1.TabIndex = 6;
             label1.Text = "TenXe";
-            label1.Click += label1_Click;
+           // label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -111,7 +111,7 @@
             label2.Size = new Size(75, 25);
             label2.TabIndex = 7;
             label2.Text = "HangXe";
-            label2.Click += label2_Click;
+          //  label2.Click += label2_Click;
             // 
             // label3
             // 
